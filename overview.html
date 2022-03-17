@@ -1,0 +1,288 @@
+<div class="preview-pane pane" style="font-size: 100%;"><h1>Spring Boot</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot helps you to create Spring-powered, production-grade applications and services with absolute minimum fuss.
+It takes an opinionated view of the Spring platform so that new and existing users can quickly get to the bits they need.</p>
+</div>
+<div class="paragraph">
+<p>You can use Spring Boot to create stand-alone Java applications that can be started using <code>java -jar</code> or more traditional WAR deployments.
+We also provide a command-line tool that runs Spring scripts.</p>
+</div>
+<div class="paragraph">
+<p>Our primary goals are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Provide a radically faster and widely accessible getting started experience for all Spring development.</p>
+</li>
+<li>
+<p>Be opinionated, but get out of the way quickly as requirements start to diverge from the defaults.</p>
+</li>
+<li>
+<p>Provide a range of non-functional features common to large classes of projects (for example, embedded servers, security, metrics, health checks, externalized configuration).</p>
+</li>
+<li>
+<p>Absolutely no code generation and no requirement for XML configuration.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation_and_getting_started">Installation and Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The {docs}/html/[reference documentation] includes detailed {docs}/html/getting-started.html#getting-started-installing-spring-boot[installation instructions] as well as a comprehensive {docs}/html/getting-started.html#getting-started-first-application[<code>getting started</code>] guide.</p>
+</div>
+<div class="paragraph">
+<p>Here is a quick teaser of a complete Spring Boot application in Java:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-keyword">import</span> org.springframework.boot.*;
+<span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.*;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.*;
+
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> </span>{
+
+	<span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/"</span>)
+	<span class="hljs-function">String <span class="hljs-title">home</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"Hello World!"</span>;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+		SpringApplication.run(Example.class, args);
+	}
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_help">Getting Help</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Are you having trouble with Spring Boot? We want to help!</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the {docs}/html/[reference documentation], especially the {docs}/html/howto.html#howto[How-to’s]&thinsp;—&thinsp;they provide solutions to the most common questions.</p>
+</li>
+<li>
+<p>Learn the Spring basics&thinsp;—&thinsp;Spring Boot builds on many other Spring projects; check the <a href="https://spring.io">spring.io</a> website for a wealth of reference documentation.
+If you are new to Spring, try one of the <a href="https://spring.io/guides">guides</a>.</p>
+</li>
+<li>
+<p>If you are upgrading, read the {github}/wiki[release notes] for upgrade instructions and "new and noteworthy" features.</p>
+</li>
+<li>
+<p>Ask a question&thinsp;—&thinsp;we monitor <a href="https://stackoverflow.com">stackoverflow.com</a> for questions tagged with <a href="https://stackoverflow.com/tags/spring-boot"><code>spring-boot</code></a>.
+You can also chat with the community on <a href="https://gitter.im/spring-projects/spring-boot">Gitter</a>.</p>
+</li>
+<li>
+<p>Report bugs with Spring Boot at {github}/issues[github.com/spring-projects/spring-boot/issues].</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reporting_issues">Reporting Issues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot uses GitHub’s integrated issue tracking system to record bugs and feature requests.
+If you want to raise an issue, please follow the recommendations below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Before you log a bug, please search the {github}/issues[issue tracker] to see if someone has already reported the problem.</p>
+</li>
+<li>
+<p>If the issue doesn’t already exist, {github}/issues/new[create a new issue].</p>
+</li>
+<li>
+<p>Please provide as much information as possible with the issue report.
+We like to know the Spring Boot version, operating system, and JVM version you’re using.</p>
+</li>
+<li>
+<p>If you need to paste code or include a stack trace, use Markdown.
+``` escapes before and after your text.</p>
+</li>
+<li>
+<p>If possible, try to create a test case or project that replicates the problem and attach it to the issue.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building_from_source">Building from Source</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You don’t need to build from source to use Spring Boot (binaries in <a href="https://repo.spring.io">repo.spring.io</a>), but if you want to try out the latest and greatest, Spring Boot can be built and published to your local Maven cache using the <a href="https://docs.gradle.org/current/userguide/gradle_wrapper.html">Gradle wrapper</a>.
+You also need JDK 1.8.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ./gradlew publishToMavenLocal</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will build all of the jars and documentation and publish them to your local Maven cache.
+It won’t run any of the tests.
+If you want to build everything, use the <code>build</code> task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ./gradlew build</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modules">Modules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are several modules in Spring Boot. Here is a quick overview:</p>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot">spring-boot</h3>
+<div class="paragraph">
+<p>The main library providing features that support the other parts of Spring Boot. These include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>SpringApplication</code> class, providing static convenience methods that can be used to write a stand-alone Spring Application.
+Its sole job is to create and refresh an appropriate Spring <code>ApplicationContext</code>.</p>
+</li>
+<li>
+<p>Embedded web applications with a choice of container (Tomcat, Jetty, or Undertow).</p>
+</li>
+<li>
+<p>First-class externalized configuration support.</p>
+</li>
+<li>
+<p>Convenience <code>ApplicationContext</code> initializers, including support for sensible logging defaults.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_autoconfigure">spring-boot-autoconfigure</h3>
+<div class="paragraph">
+<p>Spring Boot can configure large parts of typical applications based on the content of their classpath.
+A single <code>@EnableAutoConfiguration</code> annotation triggers auto-configuration of the Spring context.</p>
+</div>
+<div class="paragraph">
+<p>Auto-configuration attempts to deduce which beans a user might need. For example, if <code>HSQLDB</code> is on the classpath, and the user has not configured any database connections, then they probably want an in-memory database to be defined.
+Auto-configuration will always back away as the user starts to define their own beans.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_starters">spring-boot-starters</h3>
+<div class="paragraph">
+<p>Starters are a set of convenient dependency descriptors that you can include in your application.
+You get a one-stop shop for all the Spring and related technology you need without having to hunt through sample code and copy-paste loads of dependency descriptors.
+For example, if you want to get started using Spring and JPA for database access, include the <code>spring-boot-starter-data-jpa</code> dependency in your project, and you are good to go.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_cli">spring-boot-cli</h3>
+<div class="paragraph">
+<p>The Spring command-line application compiles and runs Groovy source, allowing you to write the absolute minimum amount of code to get an application running.
+Spring CLI can also watch files, automatically recompiling and restarting when they change.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_actuator">spring-boot-actuator</h3>
+<div class="paragraph">
+<p>Actuator endpoints let you monitor and interact with your application.
+Spring Boot Actuator provides the infrastructure required for actuator endpoints.
+It contains annotation support for actuator endpoints.
+This module provides many endpoints, including the <code>HealthEndpoint</code>, <code>EnvironmentEndpoint</code>, <code>BeansEndpoint</code>, and many more.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_actuator_autoconfigure">spring-boot-actuator-autoconfigure</h3>
+<div class="paragraph">
+<p>This provides auto-configuration for actuator endpoints based on the content of the classpath and a set of properties.
+For instance, if Micrometer is on the classpath, it will auto-configure the <code>MetricsEndpoint</code>.
+It contains configuration to expose endpoints over HTTP or JMX.
+Just like Spring Boot AutoConfigure, this will back away as the user starts to define their own beans.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_test">spring-boot-test</h3>
+<div class="paragraph">
+<p>This module contains core items and annotations that can be helpful when testing your application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_test_autoconfigure">spring-boot-test-autoconfigure</h3>
+<div class="paragraph">
+<p>Like other Spring Boot auto-configuration modules, spring-boot-test-autoconfigure provides auto-configuration for tests based on the classpath.
+It includes many annotations that can automatically configure a slice of your application that needs to be tested.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_loader">spring-boot-loader</h3>
+<div class="paragraph">
+<p>Spring Boot Loader provides the secret sauce that allows you to build a single jar file that can be launched using <code>java -jar</code>.
+Generally, you will not need to use <code>spring-boot-loader</code> directly but work with the <a href="spring-boot-project/spring-boot-tools/spring-boot-gradle-plugin">Gradle</a> or <a href="spring-boot-project/spring-boot-tools/spring-boot-maven-plugin">Maven</a> plugin instead.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_devtools">spring-boot-devtools</h3>
+<div class="paragraph">
+<p>The spring-boot-devtools module provides additional development-time features, such as automatic restarts, for a smoother application development experience.
+Developer tools are automatically disabled when running a fully packaged application.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_samples">Samples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Groovy samples for use with the command line application are available in <a href="spring-boot-project/spring-boot-cli/samples">spring-boot-cli/samples</a>.
+To run the CLI samples, type <code>spring run &lt;sample&gt;.groovy</code> from the samples directory.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_guides">Guides</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://spring.io/">spring.io</a> site contains several guides that show how to use Spring Boot step-by-step:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://spring.io/guides/gs/spring-boot/">Building an Application with Spring Boot</a> is an introductory guide that shows you how to create an application, run it, and add some management services.</p>
+</li>
+<li>
+<p><a href="https://spring.io/guides/gs/actuator-service/">Building a RESTful Web Service with Spring Boot Actuator</a> is a guide to creating a REST web service and also shows how the server can be configured.</p>
+</li>
+<li>
+<p><a href="https://spring.io/guides/gs/convert-jar-to-war/">Converting a Spring Boot JAR Application to a WAR</a> shows you how to run applications in a web server as a WAR file.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_license">License</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot is Open Source software released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0 license</a>.</p>
+</div>
+</div>
+</div></div>

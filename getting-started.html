@@ -1,0 +1,839 @@
+<article class="content--container">
+<h1 class="title">Building an Application with Spring Boot</h1>
+<div class="article-body"><div class="paragraph">
+<p>This guide provides a sampling of how <a href="https://github.com/spring-projects/spring-boot">Spring Boot</a> helps you accelerate application development. As you read more Spring Getting Started guides, you will see more use cases for Spring Boot. This guide is meant to give you a quick taste of Spring Boot. If you want to create your own Spring Boot-based project, visit <a href="https://start.spring.io/">Spring Initializr</a>, fill in your project details, pick your options, and download a bundled up project as a zip file.</p>
+</div>
+<div class="sect1">
+<h2 id="_what_you_will_build">What You Will build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You will build a simple web application with Spring Boot and add some useful services to it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_you_need">What You Need</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li> <p>About 15 minutes</p> </li>
+<li> <p>A favorite text editor or IDE</p> </li>
+<li> <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 1.8</a> or later</p> </li>
+<li> <p><a href="http://www.gradle.org/downloads">Gradle 4+</a> or <a href="https://maven.apache.org/download.cgi">Maven 3.2+</a></p> </li>
+<li> <p>You can also import the code straight into your IDE:</p>
+<div class="ulist">
+<ul>
+<li> <p><a href="/guides/gs/sts">Spring Tool Suite (STS)</a></p> </li>
+<li> <p><a href="/guides/gs/intellij-idea/">IntelliJ IDEA</a></p> </li>
+</ul>
+</div> </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_complete_this_guide">How to complete this guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like most Spring <a href="/guides">Getting Started guides</a>, you can start from scratch and complete each step or you can bypass basic setup steps that are already familiar to you. Either way, you end up with working code.</p>
+</div>
+<div class="paragraph">
+<p>To <strong>start from scratch</strong>, move on to <a href="#scratch">Starting with Spring Initializr</a>.</p>
+</div>
+<div class="paragraph">
+<p>To <strong>skip the basics</strong>, do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li> <p><a href="https://github.com/spring-guides/gs-spring-boot/archive/main.zip">Download</a> and unzip the source repository for this guide, or clone it using <a href="/understanding/Git">Git</a>: <code>git clone <a href="https://github.com/spring-guides/gs-spring-boot.git" class="bare">https://github.com/spring-guides/gs-spring-boot.git</a></code></p> </li>
+<li> <p>cd into <code>gs-spring-boot/initial</code></p> </li>
+<li> <p>Jump ahead to <a href="#initial">Create a Simple Web Application</a>.</p> </li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>When you finish</strong>, you can check your results against the code in <code>gs-spring-boot/complete</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_learn_what_you_can_do_with_spring_boot">Learn What You Can Do with Spring Boot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot offers a fast way to build applications. It looks at your classpath and at the beans you have configured, makes reasonable assumptions about what you are missing, and adds those items. With Spring Boot, you can focus more on business features and less on infrastructure.</p>
+</div>
+<div class="paragraph">
+<p>The following examples show what Spring Boot can do for you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li> <p>Is Spring MVC on the classpath? There are several specific beans you almost always need, and Spring Boot adds them automatically. A Spring MVC application also needs a servlet container, so Spring Boot automatically configures embedded Tomcat.</p> </li>
+<li> <p>Is Jetty on the classpath? If so, you probably do NOT want Tomcat but instead want embedded Jetty. Spring Boot handles that for you.</p> </li>
+<li> <p>Is Thymeleaf on the classpath? If so, there are a few beans that must always be added to your application context. Spring Boot adds them for you.</p> </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are just a few examples of the automatic configuration Spring Boot provides. At the same time, Spring Boot does not get in your way. For example, if Thymeleaf is on your path, Spring Boot automatically adds a <code>SpringTemplateEngine</code> to your application context. But if you define your own <code>SpringTemplateEngine</code> with your own settings, Spring Boot does not add one. This leaves you in control with little effort on your part.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-note" title="Note"></i> </td>
+<td class="content"> Spring Boot does not generate code or make edits to your files. Instead, when you start your application, Spring Boot dynamically wires up beans and settings and applies them to your application context. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scratch">Starting with Spring Initializr</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use this <a href="https://start.spring.io/#!type=maven-project&amp;language=java&amp;platformVersion=2.5.5&amp;packaging=jar&amp;jvmVersion=11&amp;groupId=com.example&amp;artifactId=spring-boot&amp;name=spring-boot&amp;description=Demo%20project%20for%20Spring%20Boot&amp;packageName=com.example.spring-boot&amp;dependencies=web">pre-initialized project</a> and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.</p>
+</div>
+<div class="paragraph">
+<p>To manually initialize the project:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li> <p>Navigate to <a href="https://start.spring.io" class="bare">https://start.spring.io</a>. This service pulls in all the dependencies you need for an application and does most of the setup for you.</p> </li>
+<li> <p>Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.</p> </li>
+<li> <p>Click <strong>Dependencies</strong> and select <strong>Spring Web</strong>.</p> </li>
+<li> <p>Click <strong>Generate</strong>.</p> </li>
+<li> <p>Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.</p> </li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-note" title="Note"></i> </td>
+<td class="content"> If your IDE has the Spring Initializr integration, you can complete this process from your IDE. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-note" title="Note"></i> </td>
+<td class="content"> You can also fork the project from Github and open it in your IDE or other editor. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="initial">Create a Simple Web Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now you can create a web controller for a simple web application, as the following listing (from <code>src/main/java/com/example/springboot/HelloController.java</code>) shows:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="java"><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">example</span><span class="pun">.</span><span class="pln">springboot</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">GetMapping</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">RestController</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@RestController</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">HelloController</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+	</span><span class="lit">@GetMapping</span><span class="pun">(</span><span class="str">"/"</span><span class="pun">)</span><span class="pln">
+	</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> index</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+		</span><span class="kwd">return</span><span class="pln"> </span><span class="str">"Greetings from Spring Boot!"</span><span class="pun">;</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="package com.example.springboot;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+	@GetMapping(&quot;/&quot;)
+	public String index() {
+		return &quot;Greetings from Spring Boot!&quot;;
+	}
+
+}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The class is flagged as a <code>@RestController</code>, meaning it is ready for use by Spring MVC to handle web requests. <code>@GetMapping</code> maps <code>/</code> to the <code>index()</code> method. When invoked from a browser or by using curl on the command line, the method returns pure text. That is because <code>@RestController</code> combines <code>@Controller</code> and <code>@ResponseBody</code>, two annotations that results in web requests returning data rather than a view.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_an_application_class">Create an Application class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Spring Initializr creates a simple application class for you. However, in this case, it is too simple. You need to modify the application class to match the following listing (from <code>src/main/java/com/example/springboot/Application.java</code>):</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="java"><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">example</span><span class="pun">.</span><span class="pln">springboot</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">Arrays</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="typ">CommandLineRunner</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="typ">SpringApplication</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="typ">SpringBootApplication</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="typ">ApplicationContext</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Bean</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@SpringBootApplication</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Application</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+	</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+		</span><span class="typ">SpringApplication</span><span class="pun">.</span><span class="pln">run</span><span class="pun">(</span><span class="typ">Application</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">,</span><span class="pln"> args</span><span class="pun">);</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+
+	</span><span class="lit">@Bean</span><span class="pln">
+	</span><span class="kwd">public</span><span class="pln"> </span><span class="typ">CommandLineRunner</span><span class="pln"> commandLineRunner</span><span class="pun">(</span><span class="typ">ApplicationContext</span><span class="pln"> ctx</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+		</span><span class="kwd">return</span><span class="pln"> args </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+			</span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Let's inspect the beans provided by Spring Boot:"</span><span class="pun">);</span><span class="pln">
+
+			</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> beanNames </span><span class="pun">=</span><span class="pln"> ctx</span><span class="pun">.</span><span class="pln">getBeanDefinitionNames</span><span class="pun">();</span><span class="pln">
+			</span><span class="typ">Arrays</span><span class="pun">.</span><span class="pln">sort</span><span class="pun">(</span><span class="pln">beanNames</span><span class="pun">);</span><span class="pln">
+			</span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="typ">String</span><span class="pln"> beanName </span><span class="pun">:</span><span class="pln"> beanNames</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+				</span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">beanName</span><span class="pun">);</span><span class="pln">
+			</span><span class="pun">}</span><span class="pln">
+
+		</span><span class="pun">};</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="package com.example.springboot;
+
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+
+			System.out.println(&quot;Let's inspect the beans provided by Spring Boot:&quot;);
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+
+		};
+	}
+
+}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>@SpringBootApplication</code> is a convenience annotation that adds all of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li> <p><code>@Configuration</code>: Tags the class as a source of bean definitions for the application context.</p> </li>
+<li> <p><code>@EnableAutoConfiguration</code>: Tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings. For example, if <code>spring-webmvc</code> is on the classpath, this annotation flags the application as a web application and activates key behaviors, such as setting up a <code>DispatcherServlet</code>.</p> </li>
+<li> <p><code>@ComponentScan</code>: Tells Spring to look for other components, configurations, and services in the <code>com/example</code> package, letting it find the controllers.</p> </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>main()</code> method uses Spring Boot’s <code>SpringApplication.run()</code> method to launch an application. Did you notice that there was not a single line of XML? There is no <code>web.xml</code> file, either. This web application is 100% pure Java and you did not have to deal with configuring any plumbing or infrastructure.</p>
+</div>
+<div class="paragraph">
+<p>There is also a <code>CommandLineRunner</code> method marked as a <code>@Bean</code>, and this runs on start up. It retrieves all the beans that were created by your application or that were automatically added by Spring Boot. It sorts them and prints them out.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_application">Run the Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run the application, run the following command in a terminal window (in the <code>complete</code>) directory:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>./gradlew bootRun</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If you use Maven, run the following command in a terminal window (in the <code>complete</code>) directory:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>./mvnw spring-boot:run</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see output similar to the following:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="text"><span class="typ">Let</span><span class="str">'s inspect the beans provided by Spring Boot:
+application
+beanNameHandlerMapping
+defaultServletHandlerMapping
+dispatcherServlet
+embeddedServletContainerCustomizerBeanPostProcessor
+handlerExceptionResolver
+helloController
+httpRequestHandlerAdapter
+messageSource
+mvcContentNegotiationManager
+mvcConversionService
+mvcValidator
+org.springframework.boot.autoconfigure.MessageSourceAutoConfiguration
+org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration$DispatcherServletConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration$EmbeddedTomcat
+org.springframework.boot.autoconfigure.web.ServerPropertiesAutoConfiguration
+org.springframework.boot.context.embedded.properties.ServerProperties
+org.springframework.context.annotation.ConfigurationClassPostProcessor.enhancedConfigurationProcessor
+org.springframework.context.annotation.ConfigurationClassPostProcessor.importAwareProcessor
+org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+org.springframework.context.annotation.internalCommonAnnotationProcessor
+org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+org.springframework.context.annotation.internalRequiredAnnotationProcessor
+org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration
+propertySourcesBinder
+propertySourcesPlaceholderConfigurer
+requestMappingHandlerAdapter
+requestMappingHandlerMapping
+resourceHandlerMapping
+simpleControllerHandlerAdapter
+tomcatEmbeddedServletContainerFactory
+viewControllerHandlerMapping</span></code><button class="copy-button button button-small animate" data-clipboard-text="Let's inspect the beans provided by Spring Boot:
+application
+beanNameHandlerMapping
+defaultServletHandlerMapping
+dispatcherServlet
+embeddedServletContainerCustomizerBeanPostProcessor
+handlerExceptionResolver
+helloController
+httpRequestHandlerAdapter
+messageSource
+mvcContentNegotiationManager
+mvcConversionService
+mvcValidator
+org.springframework.boot.autoconfigure.MessageSourceAutoConfiguration
+org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration$DispatcherServletConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration$EmbeddedTomcat
+org.springframework.boot.autoconfigure.web.ServerPropertiesAutoConfiguration
+org.springframework.boot.context.embedded.properties.ServerProperties
+org.springframework.context.annotation.ConfigurationClassPostProcessor.enhancedConfigurationProcessor
+org.springframework.context.annotation.ConfigurationClassPostProcessor.importAwareProcessor
+org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+org.springframework.context.annotation.internalCommonAnnotationProcessor
+org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+org.springframework.context.annotation.internalRequiredAnnotationProcessor
+org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration
+propertySourcesBinder
+propertySourcesPlaceholderConfigurer
+requestMappingHandlerAdapter
+requestMappingHandlerMapping
+resourceHandlerMapping
+simpleControllerHandlerAdapter
+tomcatEmbeddedServletContainerFactory
+viewControllerHandlerMapping">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can clearly see <code>org.springframework.boot.autoconfigure</code> beans. There is also a <code>tomcatEmbeddedServletContainerFactory</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now run the service with curl (in a separate terminal window), by running the following command (shown with its output):</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="text"><span class="pln">$ curl localhost</span><span class="pun">:</span><span class="lit">8080</span><span class="pln">
+</span><span class="typ">Greetings</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="typ">Spring</span><span class="pln"> </span><span class="typ">Boot</span><span class="pun">!</span></code><button class="copy-button button button-small animate" data-clipboard-text="$ curl localhost:8080
+Greetings from Spring Boot!">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_unit_tests">Add Unit Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You will want to add a test for the endpoint you added, and Spring Test provides some machinery for that.</p>
+</div>
+<div class="paragraph">
+<p>If you use Gradle, add the following dependency to your <code>build.gradle</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="groovy"><span class="pln">testImplementation</span><span class="pun">(</span><span class="str">'org.springframework.boot:spring-boot-starter-test'</span><span class="pun">)</span></code><button class="copy-button button button-small animate" data-clipboard-text="testImplementation('org.springframework.boot:spring-boot-starter-test')">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you use Maven, add the following to your <code>pom.xml</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span><span class="pln">
+	</span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.springframework.boot</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+	</span><span class="tag">&lt;artifactId&gt;</span><span class="pln">spring-boot-starter-test</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+	</span><span class="tag">&lt;scope&gt;</span><span class="pln">test</span><span class="tag">&lt;/scope&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dependency&gt;</span></code><button class="copy-button button button-small animate" data-clipboard-text="<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-test</artifactId>
+	<scope>test</scope>
+</dependency>">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now write a simple unit test that mocks the servlet request and response through your endpoint, as the following listing (from <code>src/test/java/com/example/springboot/HelloControllerTest.java</code>) shows:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="java"><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">example</span><span class="pun">.</span><span class="pln">springboot</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">hamcrest</span><span class="pun">.</span><span class="typ">Matchers</span><span class="pun">.</span><span class="pln">equalTo</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">result</span><span class="pun">.</span><span class="typ">MockMvcResultMatchers</span><span class="pun">.</span><span class="pln">content</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">result</span><span class="pun">.</span><span class="typ">MockMvcResultMatchers</span><span class="pun">.</span><span class="pln">status</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">junit</span><span class="pun">.</span><span class="pln">jupiter</span><span class="pun">.</span><span class="pln">api</span><span class="pun">.</span><span class="typ">Test</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">factory</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Autowired</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="typ">AutoConfigureMockMvc</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="typ">SpringBootTest</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">http</span><span class="pun">.</span><span class="typ">MediaType</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="typ">MockMvc</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">request</span><span class="pun">.</span><span class="typ">MockMvcRequestBuilders</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@SpringBootTest</span><span class="pln">
+</span><span class="lit">@AutoConfigureMockMvc</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">HelloControllerTest</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+	</span><span class="lit">@Autowired</span><span class="pln">
+	</span><span class="kwd">private</span><span class="pln"> </span><span class="typ">MockMvc</span><span class="pln"> mvc</span><span class="pun">;</span><span class="pln">
+
+	</span><span class="lit">@Test</span><span class="pln">
+	</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> getHello</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">throws</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+		mvc</span><span class="pun">.</span><span class="pln">perform</span><span class="pun">(</span><span class="typ">MockMvcRequestBuilders</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"/"</span><span class="pun">).</span><span class="pln">accept</span><span class="pun">(</span><span class="typ">MediaType</span><span class="pun">.</span><span class="pln">APPLICATION_JSON</span><span class="pun">))</span><span class="pln">
+				</span><span class="pun">.</span><span class="pln">andExpect</span><span class="pun">(</span><span class="pln">status</span><span class="pun">().</span><span class="pln">isOk</span><span class="pun">())</span><span class="pln">
+				</span><span class="pun">.</span><span class="pln">andExpect</span><span class="pun">(</span><span class="pln">content</span><span class="pun">().</span><span class="kwd">string</span><span class="pun">(</span><span class="pln">equalTo</span><span class="pun">(</span><span class="str">"Greetings from Spring Boot!"</span><span class="pun">)));</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="package com.example.springboot;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class HelloControllerTest {
+
+	@Autowired
+	private MockMvc mvc;
+
+	@Test
+	public void getHello() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get(&quot;/&quot;).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().string(equalTo(&quot;Greetings from Spring Boot!&quot;)));
+	}
+}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>MockMvc</code> comes from Spring Test and lets you, through a set of convenient builder classes, send HTTP requests into the <code>DispatcherServlet</code> and make assertions about the result. Note the use of <code>@AutoConfigureMockMvc</code> and <code>@SpringBootTest</code> to inject a <code>MockMvc</code> instance. Having used <code>@SpringBootTest</code>, we are asking for the whole application context to be created. An alternative would be to ask Spring Boot to create only the web layers of the context by using <code>@WebMvcTest</code>. In either case, Spring Boot automatically tries to locate the main application class of your application, but you can override it or narrow it down if you want to build something different.</p>
+</div>
+<div class="paragraph">
+<p>As well as mocking the HTTP request cycle, you can also use Spring Boot to write a simple full-stack integration test. For example, instead of (or as well as) the mock test shown earlier, we could create the following test (from <code>src/test/java/com/example/springboot/HelloControllerIT.java</code>):</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="java"><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">example</span><span class="pun">.</span><span class="pln">springboot</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">junit</span><span class="pun">.</span><span class="pln">jupiter</span><span class="pun">.</span><span class="pln">api</span><span class="pun">.</span><span class="typ">Test</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">factory</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Autowired</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="typ">SpringBootTest</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">test</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">client</span><span class="pun">.</span><span class="typ">TestRestTemplate</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">http</span><span class="pun">.</span><span class="typ">ResponseEntity</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">assertj</span><span class="pun">.</span><span class="pln">core</span><span class="pun">.</span><span class="pln">api</span><span class="pun">.</span><span class="typ">Assertions</span><span class="pun">.</span><span class="pln">assertThat</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@SpringBootTest</span><span class="pun">(</span><span class="pln">webEnvironment </span><span class="pun">=</span><span class="pln"> </span><span class="typ">SpringBootTest</span><span class="pun">.</span><span class="typ">WebEnvironment</span><span class="pun">.</span><span class="pln">RANDOM_PORT</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">HelloControllerIT</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+	</span><span class="lit">@Autowired</span><span class="pln">
+	</span><span class="kwd">private</span><span class="pln"> </span><span class="typ">TestRestTemplate</span><span class="pln"> </span><span class="kwd">template</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="lit">@Test</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> getHello</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">throws</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">ResponseEntity</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> response </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">template</span><span class="pun">.</span><span class="pln">getForEntity</span><span class="pun">(</span><span class="str">"/"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">String</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span><span class="pln">
+        assertThat</span><span class="pun">(</span><span class="pln">response</span><span class="pun">.</span><span class="pln">getBody</span><span class="pun">()).</span><span class="pln">isEqualTo</span><span class="pun">(</span><span class="str">"Greetings from Spring Boot!"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="package com.example.springboot;
+
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class HelloControllerIT {
+
+	@Autowired
+	private TestRestTemplate template;
+
+    @Test
+    public void getHello() throws Exception {
+        ResponseEntity<String> response = template.getForEntity(&quot;/&quot;, String.class);
+        assertThat(response.getBody()).isEqualTo(&quot;Greetings from Spring Boot!&quot;);
+    }
+}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The embedded server starts on a random port because of <code>webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT</code>, and the actual port is configured automatically in the base URL for the <code>TestRestTemplate</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_production_grade_services">Add Production-grade Services</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are building a web site for your business, you probably need to add some management services. Spring Boot provides several such services (such as health, audits, beans, and more) with its <a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready">actuator module</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you use Gradle, add the following dependency to your <code>build.gradle</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="groovy"><span class="pln">implementation </span><span class="str">'org.springframework.boot:spring-boot-starter-actuator'</span></code><button class="copy-button button button-small animate" data-clipboard-text="implementation 'org.springframework.boot:spring-boot-starter-actuator'">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you use Maven, add the following dependency to your <code>pom.xml</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span><span class="pln">
+	</span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.springframework.boot</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+	</span><span class="tag">&lt;artifactId&gt;</span><span class="pln">spring-boot-starter-actuator</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dependency&gt;</span></code><button class="copy-button button button-small animate" data-clipboard-text="<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then restart the application. If you use Gradle, run the following command in a terminal window (in the <code>complete</code> directory):</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>./gradlew bootRun</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If you use Maven, run the following command in a terminal window (in the <code>complete</code> directory):</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>./mvnw spring-boot:run</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see that a new set of RESTful end points have been added to the application. These are management services provided by Spring Boot. The following listing shows typical output:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="text"><span class="pln">management</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">configprops</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">properties</span><span class="pun">.</span><span class="typ">ConfigurationPropertiesReportEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">env</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">env</span><span class="pun">.</span><span class="typ">EnvironmentEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">health</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">health</span><span class="pun">.</span><span class="typ">HealthEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">logfile</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">logging</span><span class="pun">.</span><span class="typ">LogFileWebEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">endpoints</span><span class="pun">.</span><span class="pln">jmx</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">jmx</span><span class="pun">.</span><span class="typ">JmxEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">endpoints</span><span class="pun">.</span><span class="pln">web</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="typ">WebEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">endpoints</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">cors</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">endpoint</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="typ">CorsEndpointProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">health</span><span class="pun">.</span><span class="pln">diskspace</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">system</span><span class="pun">.</span><span class="typ">DiskSpaceHealthIndicatorProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">info</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">info</span><span class="pun">.</span><span class="typ">InfoContributorProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">metrics</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">metrics</span><span class="pun">.</span><span class="typ">MetricsProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">metrics</span><span class="pun">.</span><span class="kwd">export</span><span class="pun">.</span><span class="pln">simple</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">metrics</span><span class="pun">.</span><span class="kwd">export</span><span class="pun">.</span><span class="pln">simple</span><span class="pun">.</span><span class="typ">SimpleProperties</span><span class="pln">
+management</span><span class="pun">.</span><span class="pln">server</span><span class="pun">-</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">boot</span><span class="pun">.</span><span class="pln">actuate</span><span class="pun">.</span><span class="pln">autoconfigure</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">server</span><span class="pun">.</span><span class="typ">ManagementServerProperties</span></code><button class="copy-button button button-small animate" data-clipboard-text="management.endpoint.configprops-org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointProperties
+management.endpoint.env-org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointProperties
+management.endpoint.health-org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties
+management.endpoint.logfile-org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointProperties
+management.endpoints.jmx-org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties
+management.endpoints.web-org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties
+management.endpoints.web.cors-org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties
+management.health.diskspace-org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthIndicatorProperties
+management.info-org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties
+management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties
+management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties
+management.server-org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The actuator exposes the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li> <p><a href="http://localhost:8080/actuator/health">actuator/health</a></p> </li>
+<li> <p><a href="http://localhost:8080/actuator">actuator</a></p> </li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-note" title="Note"></i> </td>
+<td class="content"> There is also an <code>/actuator/shutdown</code> endpoint, but, by default, it is visible only through JMX. To <a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready-endpoints-enabling-endpoints">enable it as an HTTP endpoint</a>, add <code>management.endpoint.shutdown.enabled=true</code> to your <code>application.properties</code> file and expose it with <code>management.endpoints.web.exposure.include=health,info,shutdown</code>. However, you probably should not enable the shutdown endpoint for a publicly available application. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+<p>You can check the health of the application by running the following command:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="bash"><span class="pln">$ curl localhost</span><span class="pun">:</span><span class="lit">8080</span><span class="pun">/</span><span class="pln">actuator</span><span class="pun">/</span><span class="pln">health
+</span><span class="pun">{</span><span class="str">"status"</span><span class="pun">:</span><span class="str">"UP"</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="$ curl localhost:8080/actuator/health
+{&quot;status&quot;:&quot;UP&quot;}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can try also to invoke shutdown through curl, to see what happens when you have not added the necessary line (shown in the preceding note) to <code>application.properties</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="bash"><span class="pln">$ curl </span><span class="pun">-</span><span class="pln">X POST localhost</span><span class="pun">:</span><span class="lit">8080</span><span class="pun">/</span><span class="pln">actuator</span><span class="pun">/</span><span class="pln">shutdown
+</span><span class="pun">{</span><span class="str">"timestamp"</span><span class="pun">:</span><span class="lit">1401820343710</span><span class="pun">,</span><span class="str">"error"</span><span class="pun">:</span><span class="str">"Not Found"</span><span class="pun">,</span><span class="str">"status"</span><span class="pun">:</span><span class="lit">404</span><span class="pun">,</span><span class="str">"message"</span><span class="pun">:</span><span class="str">""</span><span class="pun">,</span><span class="str">"path"</span><span class="pun">:</span><span class="str">"/actuator/shutdown"</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="$ curl -X POST localhost:8080/actuator/shutdown
+{&quot;timestamp&quot;:1401820343710,&quot;error&quot;:&quot;Not Found&quot;,&quot;status&quot;:404,&quot;message&quot;:&quot;&quot;,&quot;path&quot;:&quot;/actuator/shutdown&quot;}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Because we did not enable it, the requested endpoint is not available (because the endpoint does not exist).</p>
+</div>
+<div class="paragraph">
+<p>For more details about each of these REST endpoints and how you can tune their settings with an <code>application.properties</code> file (in <code>src/main/resources</code>), see the the <a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready-endpoints">documentation about the endpoints</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_spring_boots_starters">View Spring Boot’s Starters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You have seen some of <a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#using-boot-starter">Spring Boot’s “starters”</a>. You can see them all <a href="https://github.com/spring-projects/spring-boot/tree/main/spring-boot-project/spring-boot-starters">here in source code</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jar_support_and_groovy_support">JAR Support and Groovy Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The last example showed how Spring Boot lets you wire beans that you may not be aware you need. It also showed how to turn on convenient management services.</p>
+</div>
+<div class="paragraph">
+<p>However, Spring Boot does more than that. It supports not only traditional WAR file deployments but also lets you put together executable JARs, thanks to Spring Boot’s loader module. The various guides demonstrate this dual support through the <code>spring-boot-gradle-plugin</code> and <code>spring-boot-maven-plugin</code>.</p>
+</div>
+<div class="paragraph">
+<p>On top of that, Spring Boot also has Groovy support, letting you build Spring MVC web applications with as little as a single file.</p>
+</div>
+<div class="paragraph">
+<p>Create a new file called <code>app.groovy</code> and put the following code in it:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="java"><span class="lit">@RestController</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">ThisWillActuallyRun</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="lit">@GetMapping</span><span class="pun">(</span><span class="str">"/"</span><span class="pun">)</span><span class="pln">
+    </span><span class="typ">String</span><span class="pln"> home</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"Hello, World!"</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code><button class="copy-button button button-small animate" data-clipboard-text="@RestController
+class ThisWillActuallyRun {
+
+    @GetMapping(&quot;/&quot;)
+    String home() {
+        return &quot;Hello, World!&quot;
+    }
+
+}">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-note" title="Note"></i> </td>
+<td class="content"> It does not matter where the file is. You can even fit an application that small inside a <a href="https://twitter.com/rob_winch/status/364871658483351552">single tweet</a>! </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+<p>Next, <a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#getting-started-installing-the-cli">install Spring Boot’s CLI</a>.</p>
+</div>
+<div class="paragraph">
+<p>Run the Groovy application by running the following command:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="bash"><span class="pln">$ spring run app</span><span class="pun">.</span><span class="pln">groovy</span></code><button class="copy-button button button-small animate" data-clipboard-text="$ spring run app.groovy">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-note" title="Note"></i> </td>
+<td class="content"> Shut down the previous application, to avoid a port collision. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+<p>From a different terminal window, run the following curl command (shown with its output):</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight prettyprinted" style=""><code data-lang="bash"><span class="pln">$ curl localhost</span><span class="pun">:</span><span class="lit">8080</span><span class="pln">
+</span><span class="typ">Hello</span><span class="pun">,</span><span class="pln"> </span><span class="typ">World</span><span class="pun">!</span></code><button class="copy-button button button-small animate" data-clipboard-text="$ curl localhost:8080
+Hello, World!">Copy</button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Spring Boot does this by dynamically adding key annotations to your code and using <a href="http://www.groovy-lang.org/Grape">Groovy Grape</a> to pull down the libraries that are needed to make the app run.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations! You built a simple web application with Spring Boot and learned how it can ramp up your development pace. You also turned on some handy production services. This is only a small sampling of what Spring Boot can do. See <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle">Spring Boot’s online docs</a> for much more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following guides may also be helpful:</p>
+</div>
+<div class="ulist">
+<ul>
+<li> <p><a href="https://spring.io/guides/gs/securing-web/">Securing a Web Application</a></p> </li>
+<li> <p><a href="https://spring.io/guides/gs/serving-web-content/">Serving Web Content with Spring MVC</a></p> </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Want to write a new guide or contribute to an existing one? Check out our <a href="https://github.com/spring-guides/getting-started-guides/wiki">contribution guidelines</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tbody>
+<tr>
+<td class="icon"> <i class="fa icon-important" title="Important"></i> </td>
+<td class="content"> All guides are released with an ASLv2 license for the code, and an <a href="https://creativecommons.org/licenses/by-nd/3.0/">Attribution, NoDerivatives creative commons license</a> for the writing. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</article>

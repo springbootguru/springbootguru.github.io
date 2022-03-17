@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Spring Boot GURU</title>
-    
+
     <link rel="shortcut icon" href="img/favicon.png">
     
     <!-- Bootstrap core CSS -->
@@ -21,14 +21,16 @@
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
 
+    <script src="index.js"></script>
+
   </head>
 
   <body>
 
-    <script src="index.js"></script>
-    
     <script>
-      fragments = [ 'nav.html', 'header.html', 'main.html', 'footer.html' ];
+      var article = new URLSearchParams(window.location.search).entries().next().value[0];
+      //console.log(post);
+      fragments = [ 'nav.html', 'post-header.html', article + '.html', 'footer.html' ];
       loadFragment(0);
     </script>
 
